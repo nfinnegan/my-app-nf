@@ -27,13 +27,6 @@ pipeline:
                   timeout: ""
                   type: Run
               - step:
-                  identifier: test
-                  name: test
-                  spec:
-                    command: npm run test
-                  timeout: ""
-                  type: Run
-              - step:
                   identifier: build
                   name: build
                   spec:
@@ -44,17 +37,17 @@ pipeline:
                   identifier: dockerbuild
                   name: docker_build
                   spec:
-                    caching: true
                     connectorRef: <+input>
-                    repo: hello/world
+                    repo: nfinnegan00/my-app-nf
                     tags:
                       - latest
+                    caching: true
                   timeout: ""
                   type: BuildAndPushDockerRegistry
           platform:
-            arch: Amd64
             os: Linux
+            arch: Arm64
           runtime:
-            spec: {}
             type: Cloud
+            spec: {}
         type: CI
