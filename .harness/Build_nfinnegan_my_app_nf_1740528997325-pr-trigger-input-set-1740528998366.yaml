@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_nfinnegan_my_app_nf_1740528997325-pr-trigger-input-set
+  identifier: Build_nfinnegan_my_app_nf_1740528997325prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_nfinnegan_my_app_nf_1740528997325
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
