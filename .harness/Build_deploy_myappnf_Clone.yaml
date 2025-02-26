@@ -1,0 +1,54 @@
+pipeline:
+  orgIdentifier: default
+  projectIdentifier: default_project
+  properties:
+    ci:
+      codebase:
+        build: <+input>
+        connectorRef: account.Github
+        repoName: nfinnegan/my-app-nf
+  stages:
+    - stage:
+        identifier: build1
+        name: build
+        spec:
+          caching:
+            enabled: true
+          cloneCodebase: true
+          execution:
+            steps:
+              - step:
+                  identifier: installdependencies
+                  name: install dependencies
+                  spec:
+                    command: npm install
+                  timeout: ""
+                  type: Run
+              - step:
+                  identifier: build
+                  name: build
+                  spec:
+                    command: npm run build
+                  timeout: ""
+                  type: Run
+              - step:
+                  identifier: dockerbuild
+                  name: docker_build
+                  spec:
+                    connectorRef: <+input>.allowedValues(docker_connector)
+                    repo: nfinnegan00/my-app-nf
+                    tags:
+                      - latest
+                    caching: true
+                  timeout: ""
+                  type: BuildAndPushDockerRegistry
+          platform:
+            os: Linux
+            arch: Arm64
+          runtime:
+            type: Cloud
+            spec: {}
+        type: CI
+  identifier: Build_deploy_myappnf_Clone
+  tags: {}
+  name: Build_deploy my-app-nf - Clone
